@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>attendance</title>
+</head>
+<body>
+    <div class="box">
+        <div class="head">
+            <h1>student attendance</h1>
+        </div>
+        <div id="body1" >
+            <table>
+                <tr>
+                    <td>total class  </td>
+                    <td><input type="number" id="total"></td>
+                </tr>
+
+                <tr>
+                    <td>present  </td>
+                    <td><input type="number" id="present"></td>
+                </tr>
+                <tr>
+                    <td><button id="btn1" onclick="cal()">calculate</button></td>
+                </tr>
+            </table>
+        </div>
+        <div id="body2">
+             <table>
+                <tr>
+                    <td>total class  </td>
+                    <td><button onclick="totp()">+</button></td>
+                    <td><p id="tot">50</p></td>
+                    <td><button onclick="tots()">-</button></td>
+                </tr>
+
+                <tr>
+                    <td>present  </td>
+                    <td><button onclick="prep()">+</button></td>
+                    <td><p id="pre">50</p></td>
+                    <td><button onclick="pres()">-</button></td>
+                </tr>
+                <tr>
+                    <td>absent</td>
+                    <td><button onclick="pres()">+</button></td>
+                    <td><p id="abs">50</p></td>
+                    <td><button onclick="prep()">-</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="footer">
+            <p>percentage : </p>
+            <p id="demo">%</p>
+        </div>
+    </div>
+</body>
+</html>
+<style>
+    *{
+        padding:0;
+        margin:0;
+        box-sizing: border-box;
+    }
+    p{
+        display: inline;
+        margin:0px 3px;
+    }
+    body{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background-color: rgb(170, 36, 36);
+    }
+    .box{
+        border:2px solid none;
+        padding:30px 10px;
+        text-transform: capitalize;
+        text-align: center;
+        color:white;
+        background-color: turquoise;
+        box-shadow:4px 4px 10px black;
+    }
+    .head{
+        color:rgb(24, 137, 141);
+        text-transform: uppercase;
+    }
+    #body1,#body2{
+        display: flex;
+        justify-content: space-around;
+        
+        margin:20px 0px;
+    }
+    table{
+        text-align: left;
+    }
+    tr,td{
+        padding:6px 0px;
+    }
+    button{
+        padding:3px;
+        background: transparent;
+        border:1px solid black;
+        text-transform:capitalize;
+        transition: 0.5s;
+        outline: none;
+    }
+    button:hover{
+        background-color: black;
+        color:white;
+    }
+    #body2{
+        display: none;
+    }
+</style>
+
+<script>
+function cal(){
+    var t = document.getElementById('total').value;
+    var p = document.getElementById('present').value;
+    t = parseInt(t);
+    p = parseInt(p);
+    
+    if( (t>0) && (p>0) && (p <= t))
+    {
+        var per = (p/t)*100;
+        document.getElementById('body2').style.display = "flex";
+        document.getElementById('demo').innerHTML = per+"%";
+        document.getElementById('tot').innerHTML = t;
+        document.getElementById('pre').innerHTML = p;
+        var a = t-p;
+        document.getElementById('abs').innerHTML = a;
+        document.getElementById('body1').style.display = "none";
+    }
+    else
+    alert("enter the correct value");
+}
+
+function totp(){
+    t = document.getElementById('tot').innerText;
+    p = document.getElementById('pre').innerText;
+    t = parseInt(t);
+    p = parseInt(p);
+    t =t+1;
+    p = p+1;
+    document.getElementById('tot').innerHTML = t;
+    document.getElementById('pre').innerHTML = p
+    var per = (p/t)*100;
+    document.getElementById('demo').innerHTML = per+"%";
+}
+function tots(){
+    t = document.getElementById('tot').innerText;
+    p = document.getElementById('pre').innerText;
+    t = parseInt(t);
+    p = parseInt(p);
+    if( (t>0) && (p>0)){
+    t =t-1;
+    p = p-1;
+    document.getElementById('tot').innerHTML = t;
+    document.getElementById('pre').innerHTML = p
+    var per = (p/t)*100;
+    document.getElementById('demo').innerHTML = per+"%";
+    }
+}
+
+
+function prep(){
+    t = document.getElementById('tot').innerText;
+    p = document.getElementById('pre').innerText;
+    a = document.getElementById('abs').innerText;
+    t = parseInt(t);
+    p = parseInt(p);
+    if(a>0){
+    p = p+1;
+    a = a-1;
+    document.getElementById('tot').innerHTML = t;
+    document.getElementById('pre').innerHTML = p;
+    document.getElementById('abs').innerHTML = a;
+    var per = (p/t)*100;
+    document.getElementById('demo').innerHTML = per+"%";
+    }
+}
+
+function pres(){
+    t = document.getElementById('tot').innerText;
+    p = document.getElementById('pre').innerText;
+    a = document.getElementById('abs').innerText;
+    t = parseInt(t);
+    p = parseInt(p);
+    a = parseInt(a)
+    if(p>0){
+    p = p-1;
+    a = a+1;
+    document.getElementById('tot').innerHTML = t;
+    document.getElementById('pre').innerHTML = p;
+    document.getElementById('abs').innerHTML = a;
+    var per = (p/t)*100;
+    document.getElementById('demo').innerHTML = per+"%";
+    }
+}
+</script>
